@@ -19,11 +19,14 @@ const types = {
     }
 }
 
-function useForm(type) {
+function useForm(type, useRegex = false) {
     const [value, setValue] = useState("");
     const [error, setError] = useState(null);
 
-    function validate(value, useRegex = false) {
+    function validate(value) {
+        console.log("value", value);
+        console.log("useRegex", useRegex);
+        
         if (type === false) return true;
         
         if (value.length === 0) {
@@ -33,6 +36,7 @@ function useForm(type) {
         
         if (useRegex && types[type] && !types[type].regex.test(value)) {
             setError(types[type].message);
+            console.log("types[type].message", types[type].message);
             return false;
         }
     
