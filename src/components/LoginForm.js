@@ -1,24 +1,25 @@
 "use client";
 import useForm from "@/hooks/useForm";
-import React, { useContext } from "react";
+import React, { use, useContext } from "react";
 import { TOKEN_POST, USER_GET } from "@/api";
 import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
-  const username = useForm(false);
-  const password = useForm(false);
+  const username = useForm('username', false);
+  const password = useForm('password', false);
   const { login, userSet } = useContext(AuthContext);
   const router = useRouter();
 
   React.useEffect(() => {
     // verficar se o usuário já está logado
     const token = window.localStorage.getItem("token");
+
     if (token) {
       getUser(token);
-      router.push("/teste");
     }
-  }, [router]);
+
+  }, []);
 
   async function getUser($token) {
     const { url, options } = USER_GET($token);
@@ -29,6 +30,7 @@ const LoginForm = () => {
 
       if (response.ok) {
         userSet(json.username, json.email, json.name, json.photo);
+        router.push("/teste");
       } else {
         console.error("Error:", json.message);
       }
@@ -56,16 +58,16 @@ const LoginForm = () => {
         login(json.user_nicename, json.token);
         router.push("/teste");
       } else {
-        console.error("Erro ao fazer login:", json.message);
+        console.log("Erro:", json.message);
+        alert(json.message);
       }
     } catch (error) {
-      console.error("Erro:", error);
+      console.log("Erro:", error);
     }
   };
 
   return (
     <div>
-      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -74,6 +76,7 @@ const LoginForm = () => {
           onChange={username.onChange}
           onBlur={username.onBlur}
         />
+        <span>{username.error}</span>
         <input
           type="password"
           placeholder="password"
@@ -81,6 +84,7 @@ const LoginForm = () => {
           onChange={password.onChange}
           onBlur={password.onBlur}
         />
+        <span>{password.error}</span>
         <button type="submit">entrar</button>
       </form>
     </div>

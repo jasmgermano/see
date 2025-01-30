@@ -15,12 +15,14 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
         setToken(token);
         window.localStorage.setItem("token", token);
+        window.localStorage.setItem("user", userData);
     };
 
     const logout = () => {
         setUser(null);
         setToken(null);
         window.localStorage.removeItem("token");
+        window.localStorage.removeItem("user");
     };
 
     const userSet = (username, email, name, photo) => {
@@ -28,6 +30,7 @@ export const AuthProvider = ({ children }) => {
         setEmail(email);
         setName(name);
         setPhoto(photo);
+        window.localStorage.setItem("user", username);
     }
 
     return (
