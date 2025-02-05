@@ -1,7 +1,5 @@
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-console.log("pAPI_URL", API_URL);
-
 export function TOKEN_POST(body) {
   return {
     url: `${API_URL}/jwt-auth/v1/token`,
