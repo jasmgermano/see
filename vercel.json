@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      {
+        "source": "/api/token",
+        "destination": "https://elated-boundary.localsite.io/jwt-auth/v1/token"
+      }
+    ]
+}  
