@@ -9,7 +9,7 @@ import Image from "next/image";
 import LogoutIcon from '@/assets/images/logout.svg';
 
 export default function Home() {
-  const { user, email, logout, photo, name } = useContext(AuthContext);
+  const { user, email, logout, profilePicture, name } = useContext(AuthContext);
   const router = useRouter();
 
   console.log(user);
@@ -33,7 +33,7 @@ export default function Home() {
         <Image src={Logo} alt="Logo" height={25} />
         <div className='account'>
           <div className='circle profile-picture'>
-            <img className='pfp' src={photo ? photo : 'https://secure.gravatar.com/avatar/729ae85bf62b9917e93538db2f2688ca?s=96&d=mm&r=g'} alt='foto de perfil' />
+            <img className='pfp' src={profilePicture ? profilePicture : 'https://secure.gravatar.com/avatar/729ae85bf62b9917e93538db2f2688ca?s=96&d=mm&r=g'} alt='foto de perfil' />
           </div>
           <div>
             <p className='account-name'>{name}</p>

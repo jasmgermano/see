@@ -13,10 +13,10 @@ function RegisterForm() {
   const username = useForm("username", true);
   const email = useForm("email", true);
   const password = useForm("password", true);
-  const photo = useForm("photo", true);
+  const profilePicture = useForm("profilePicture", true);
   const name = useForm("name", false);
 
-  const photoRef = useRef(null);
+  const profilePictureRef = useRef(null);
 
   const router = useRouter();
 
@@ -29,10 +29,10 @@ function RegisterForm() {
     formData.append("password", password.value);
     formData.append("name", name.value);
 
-    console.log(photoRef.current);
+    console.log(profilePictureRef.current);
 
-    if (photoRef.current && photoRef.current.files.length > 0) {
-      formData.append("photo", photoRef.current.files[0]);
+    if (profilePictureRef.current && profilePictureRef.current.files.length > 0) {
+      formData.append("profilePicture", profilePictureRef.current.files[0]);
     }
 
     const { url } = USER_POST();
@@ -55,9 +55,9 @@ function RegisterForm() {
     }
   };
 
-  function handleShowProfilePhoto() {
-    if (photoRef.current && photoRef.current.files.length > 0) {
-      const photo = photoRef.current.files[0];
+  function handleShowProfileprofilePicture() {
+    if (profilePictureRef.current && profilePictureRef.current.files.length > 0) {
+      const profilePicture = profilePictureRef.current.files[0];
     
       const reader = new FileReader();
   
@@ -65,7 +65,7 @@ function RegisterForm() {
         document.querySelector(".pfp").src = event.target.result;
       };
   
-      reader.readAsDataURL(photo); 
+      reader.readAsDataURL(profilePicture); 
     }
   }
 
@@ -123,9 +123,9 @@ function RegisterForm() {
                 type="file"
                 label="Foto de perfil"
                 placeholder="foto de perfil"
-                {...photo}
-                ref={photoRef}
-                onChange={(e) => { handleShowProfilePhoto(e); photo.onChange(e); }}
+                {...profilePicture}
+                ref={profilePictureRef}
+                onChange={(e) => { handleShowProfileprofilePicture(e); profilePicture.onChange(e); }}
               />
             </label>
           </div>

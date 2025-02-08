@@ -13,10 +13,11 @@ const types = {
         regex: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/,
         message: "E-mail inválido."
     },
-    photo: {
+    profilePicture: {
         regex: /\.(gif|jpe?g|tiff|png|webp|bmp)$/i,
         message: "Imagem inválida."
-    }
+    },
+    emailOrUsername: {}
 }
 
 function useForm(type, useRegex = false) {

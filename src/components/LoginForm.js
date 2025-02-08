@@ -10,36 +10,35 @@ import Image from "next/image";
 import ImageGrid from "./ImageGrid";
 
 const LoginForm = () => {
-  const username = useForm('username', false);
+  const emailOrUsername = useForm('emailOrUsername', false);
   const password = useForm('password', false);
   const { login, userSet } = useContext(AuthContext);
   const router = useRouter();
 
   React.useEffect(() => {
-    // verficar se o usuário já está logado
     const token = window.localStorage.getItem("token");
-
     if (token) {
       getUser(token);
     }
-
   }, []);
 
-  async function getUser($token) {
-    const { url, options } = USER_GET($token);
+  async function getUser(token) {
+    const { url, options } = USER_GET(token);
 
     try {
       const response = await fetch(url, options);
       const json = await response.json();
 
       if (response.ok) {
-        userSet(json.username, json.email, json.name, json.photo);
+        console.log(json);
+        userSet(json.username, json.email, json.name, json.profilePicture);
         router.push("/");
       } else {
-        console.error("Error:", json.message);
+        console.error("Erro ao buscar usuário:", json.message);
+        window.localStorage.removeItem("token");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Erro na requisição:", error);
     }
   }
 
@@ -47,26 +46,28 @@ const LoginForm = () => {
     event.preventDefault();
 
     const { url, options } = TOKEN_POST({
-      username: username.value,
+      username: emailOrUsername.value,
       password: password.value,
     });
 
-    
     try {
+      console.log("url, options", url, options);
       const response = await fetch(url, options);
       const json = await response.json();
-      
-      getUser(json.token);
+
 
       if (response.ok) {
-        login(json.user_nicename, json.token);
+        window.localStorage.setItem("token", json.token);
+        console.log(json);
+        login(json.user.username, json.token);
+        getUser(json.token);
         router.push("/");
       } else {
-        console.log("Erro:", json.message);
+        console.error("Erro no login:", json.message);
         alert(json.message);
       }
     } catch (error) {
-      console.log("Erro:", error);
+      console.error("Erro na requisição:", error);
     }
   };
 
@@ -101,7 +102,7 @@ const LoginForm = () => {
             type="text"
             label="Usuário"
             placeholder="preencha seu usuário ou email"
-            {...username}
+            {...emailOrUsername}
           />
           <Input
             type="password"

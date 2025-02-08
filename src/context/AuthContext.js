@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [email, setEmail] = useState(null);
     const [name, setName] = useState(null);
-    const [photo, setPhoto] = useState(null);
+    const [profilePicture, setprofilePicture] = useState(null);
 
     const login = (userData, token) => {
         setUser(userData);
@@ -25,16 +25,16 @@ export const AuthProvider = ({ children }) => {
         window.localStorage.removeItem("user");
     };
 
-    const userSet = (username, email, name, photo) => {
+    const userSet = (username, email, name, profilePicture) => {
         setUser(username);
         setEmail(email);
         setName(name);
-        setPhoto(photo);
+        setprofilePicture(profilePicture);
         window.localStorage.setItem("user", username);
     }
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, userSet, email, name, photo }}>
+        <AuthContext.Provider value={{ user, token, login, logout, userSet, email, name, profilePicture }}>
             {children}
         </AuthContext.Provider>
     );

@@ -2,20 +2,21 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export function TOKEN_POST(body) {
   return {
-    url: `${API_URL}/jwt-auth/v1/token`,
+    url: `${API_URL}/auth/login`,
     options: {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
+      mode: "cors"
     },
   };
 }
 
 export function USER_GET(token) {
   return {
-    url: `${API_URL}/api/user`,
+    url: `${API_URL}/users/me`,
     options: {
       method: "GET",
       headers: {
@@ -27,7 +28,7 @@ export function USER_GET(token) {
 
 export function USER_POST(body) {
   return {
-    url: `${API_URL}/api/user`,
+    url: `${API_URL}/auth/register`,
     options: {
       method: "POST",
       headers: {
