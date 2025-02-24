@@ -17,7 +17,8 @@ const types = {
         regex: /\.(gif|jpe?g|tiff|png|webp|bmp)$/i,
         message: "Imagem inválida."
     },
-    emailOrUsername: {}
+    emailOrUsername: {},
+    bio: {},
 }
 
 function useForm(type, useRegex = false) {
