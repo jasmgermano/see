@@ -38,3 +38,11 @@ export function USER_POST(body) {
     },
   };
 }
+export function USER_GET_BY_USERNAME(username) {
+  return {
+    url: `${API_URL}/users/profile/${username}`,
+    options: {
+      method: "GET",
+    },
+  };
+}
