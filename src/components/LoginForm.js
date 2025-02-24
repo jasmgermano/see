@@ -31,7 +31,7 @@ const LoginForm = () => {
 
       if (response.ok) {
         console.log(json);
-        userSet(json.username, json.email, json.name, json.profilePicture);
+        userSet(json);
         router.push("/");
       } else {
         console.error("Erro ao buscar usuário:", json.message);
@@ -46,7 +46,7 @@ const LoginForm = () => {
     event.preventDefault();
 
     const { url, options } = TOKEN_POST({
-      username: emailOrUsername.value,
+      emailOrUsername: emailOrUsername.value,
       password: password.value,
     });
 
@@ -58,8 +58,7 @@ const LoginForm = () => {
 
       if (response.ok) {
         window.localStorage.setItem("token", json.token);
-        console.log(json);
-        login(json.user.username, json.token);
+        login(json.user, json.token);
         getUser(json.token);
         router.push("/");
       } else {
